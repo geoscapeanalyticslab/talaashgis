@@ -1004,25 +1004,35 @@ function renderChart(papers){
 }
 
 function currentFilterParams(){
-  const p = new URLSearchParams();
-  if(fOpenAccess.checked) p.set('openAccess', '1');
-  const minCite = parseInt(fMinCite.value, 10);
-  if(!isNaN(minCite) && minCite > 0) p.set('minCite', String(minCite));
-  if(fReputed.checked) p.set('reputed', '1');
-  if(currentScope === 'pk' && fVerifiedOnly.checked) p.set('verifiedOnly', '1');
-  return p;
+  return {
+    openAccess: !!fOpenAccess.checked,
+    minCite: (() => { const n = parseInt(fMinCite.value, 10); return (!isNaN(n) && n > 0) ? n : 0; })(),
+    reputed: !!fReputed.checked,
+    verifiedOnly: currentScope === 'pk' && !!fVerifiedOnly.checked
+  };
 }
 
 // Calls the backend search API once. On first call (fresh search) pass a null
-// apiState; on "load more" pass the apiState returned by the previous call.
+// apiState; on "load more"/auto-expand pass the apiState returned by the
+// previous call. POST (not GET) because that state — in particular seenKeys,
+// the running dedup list — grows every round of Pakistan-only's auto-expand
+// loop and can get long enough to break a URL-length limit within a few
+// rounds; a JSON body has no such practical limit.
 async function callSearchApi(){
-  const params = currentFilterParams();
-  params.set('kw', searchState.kw);
-  params.set('scope', searchState.scope);
-  if(searchState.year){ params.set('year', searchState.year); } else { params.set('anyYear', '1'); }
-  if(searchState.apiState) params.set('state', JSON.stringify(searchState.apiState));
+  const body = {
+    ...currentFilterParams(),
+    kw: searchState.kw,
+    scope: searchState.scope,
+    anyYear: !searchState.year,
+    year: searchState.year || '',
+    state: searchState.apiState || null
+  };
 
-  const res = await fetch('/api/search?' + params.toString());
+  const res = await fetch('/api/search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
   const data = await res.json();
   if(!res.ok) throw new Error(data.error || 'Search failed');
   searchState.apiState = data.state;

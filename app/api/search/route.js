@@ -4,16 +4,26 @@ import { store } from '../../../lib/blobs';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(request){
-  const { searchParams } = new URL(request.url);
-  const kw = (searchParams.get('kw') || '').trim();
+// POST, not GET: the continuation `state` object (in particular seenKeys,
+// the running dedup list) grows every round of Pakistan-only scope's
+// auto-expand loop. As a URL query param it could grow past the URL-length
+// limit within a few rounds and get rejected before ever reaching this
+// handler — silently returning a non-JSON error page instead of a real
+// response. A JSON body has no such practical size limit.
+export async function POST(request){
+  let body;
+  try { body = await request.json(); } catch(e) {
+    return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
+  }
+
+  const kw = (body.kw || '').trim();
   if(!kw){
     return NextResponse.json({ error: 'Missing "kw" (keyword) parameter.' }, { status: 400 });
   }
 
-  const scope = searchParams.get('scope') === 'global' ? 'global' : 'pk';
-  const anyYear = searchParams.get('anyYear') === '1';
-  const yrRaw = anyYear ? '' : (searchParams.get('year') || '').trim();
+  const scope = body.scope === 'global' ? 'global' : 'pk';
+  const anyYear = !!body.anyYear;
+  const yrRaw = anyYear ? '' : (body.year || '').trim();
   let year = null;
   if(yrRaw){
     year = parseYear(yrRaw);
@@ -23,20 +33,16 @@ export async function GET(request){
   }
 
   const filters = {
-    openAccess: searchParams.get('openAccess') === '1',
-    minCite: parseInt(searchParams.get('minCite') || '0', 10) || 0,
-    reputed: searchParams.get('reputed') === '1',
-    verifiedOnly: searchParams.get('verifiedOnly') === '1'
+    openAccess: !!body.openAccess,
+    minCite: parseInt(body.minCite || '0', 10) || 0,
+    reputed: !!body.reputed,
+    verifiedOnly: !!body.verifiedOnly
   };
 
-  // Pagination/dedup continuation state from a previous "load more" call, if any.
-  // Opaque to the client — it just stores whatever we returned last time and
-  // sends it back unchanged.
-  let state;
-  const stateParam = searchParams.get('state');
-  if(stateParam){
-    try { state = JSON.parse(stateParam); } catch(e) { state = null; }
-  }
+  // Pagination/dedup continuation state from a previous "load more"/auto-expand
+  // call, if any. Opaque to the client — it just stores whatever we returned
+  // last time and sends it back unchanged.
+  let state = (body.state && typeof body.state === 'object') ? body.state : null;
   if(!state || state.kw !== kw || state.year !== year || state.scope !== scope){
     state = {
       kw, displayKw: kw, year, scope,
