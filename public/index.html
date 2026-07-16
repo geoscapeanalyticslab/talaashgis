@@ -438,10 +438,6 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
         <span class="suggest-lbl">Cross-check on databases without a public API:</span>
         <a href="#" id="gsLink" target="_blank" rel="noopener"><svg class="icon" style="width:12px;height:12px;"><use href="#i-external"/></svg>Google Scholar</a>
         <a href="#" id="jstorLink" target="_blank" rel="noopener"><svg class="icon" style="width:12px;height:12px;"><use href="#i-external"/></svg>JSTOR</a>
-        <a href="#" id="ieeeLink" target="_blank" rel="noopener"><svg class="icon" style="width:12px;height:12px;"><use href="#i-external"/></svg>IEEE Xplore</a>
-        <a href="#" id="springerLink" target="_blank" rel="noopener"><svg class="icon" style="width:12px;height:12px;"><use href="#i-external"/></svg>Springer</a>
-        <a href="#" id="natureLink" target="_blank" rel="noopener"><svg class="icon" style="width:12px;height:12px;"><use href="#i-external"/></svg>Nature</a>
-        <a href="#" id="sciDirectLink" target="_blank" rel="noopener"><svg class="icon" style="width:12px;height:12px;"><use href="#i-external"/></svg>ScienceDirect</a>
         <a href="#" id="wileyLink" target="_blank" rel="noopener"><svg class="icon" style="width:12px;height:12px;"><use href="#i-external"/></svg>Wiley</a>
         <a href="#" id="tfLink" target="_blank" rel="noopener"><svg class="icon" style="width:12px;height:12px;"><use href="#i-external"/></svg>Taylor &amp; Francis</a>
       </div>
@@ -496,9 +492,9 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
     </div>
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-inbox"/></svg> Data Sources</h3>
-      <p>Results are merged and de-duplicated (by DOI first, then title) from four open sources in real time: <strong>OpenAlex</strong>, <strong>Semantic Scholar</strong>, <strong>CrossRef</strong>, and <strong>arXiv</strong> (preprints). Between them these index DOI metadata from essentially every major publisher — including Springer, Nature, Wiley, Taylor &amp; Francis, ScienceDirect/Elsevier, and IEEE — so papers from those journals already surface here, with a direct DOI link to the publisher's page, without needing separate logins or API keys. <strong>Unpaywall</strong> is also checked for papers that aren't already flagged open access, to surface a free full-text link where one genuinely exists.</p>
-      <p>Google Scholar, JSTOR, ScienceDirect, Wiley, Taylor &amp; Francis, IEEE Xplore, and Springer/Nature's own site search don't offer a free public search API for this kind of app, so they can't be queried automatically. Use the cross-check links under the search box to open the same query directly on each of those sites.</p>
-      <p>All requests to these sources — and any API keys they require — are made from the backend server now, never from your browser, so keys stay private and rate limits are shared sensibly across everyone using the app.</p>
+      <p>Results are merged and de-duplicated (by DOI first, then title) from multiple sources in real time: <strong>OpenAlex</strong>, <strong>Semantic Scholar</strong>, <strong>CrossRef</strong>, and <strong>arXiv</strong> (preprints) always; plus <strong>Springer Nature</strong> (including Nature-family journals), <strong>CORE</strong>, <strong>Elsevier/ScienceDirect</strong>, <strong>IEEE Xplore</strong>, and <strong>NASA ADS</strong> (astronomy/astrophysics/planetary/space science) when their API keys are configured on the backend. <strong>Unpaywall</strong> is also checked for papers that aren't already flagged open access, to surface a free full-text link where one genuinely exists.</p>
+      <p>Google Scholar, JSTOR, Wiley, and Taylor &amp; Francis don't offer a free public search API for this kind of app, so they can't be queried automatically. Use the cross-check links under the search box to open the same query directly on each of those sites.</p>
+      <p>All requests to these sources — and every API key they require — are made from the backend server, never from your browser, so keys stay private and rate limits are shared sensibly across everyone using the app.</p>
     </div>
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-check"/></svg> Pakistan-only Scope &amp; Accuracy</h3>
@@ -553,7 +549,7 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
 
 </main>
 
-<footer>TalaashGIS · data via OpenAlex, Semantic Scholar, CrossRef &amp; arXiv · Made in Pakistan</footer>
+<footer>TalaashGIS · data via OpenAlex, Semantic Scholar, CrossRef, arXiv &amp; more · Made in Pakistan</footer>
 
 <button class="fab-report" id="fabReport"><svg class="icon" style="width:15px;height:15px;"><use href="#i-alert"/></svg>Report an issue</button>
 <div class="toast" id="toast"></div>
@@ -974,10 +970,6 @@ function updateCrossLinks(){
   const query = q || fallback;
   document.getElementById('gsLink').href = 'https://scholar.google.com/scholar?q=' + encodeURIComponent(query);
   document.getElementById('jstorLink').href = 'https://www.jstor.org/action/doBasicSearch?Query=' + encodeURIComponent(query);
-  document.getElementById('ieeeLink').href = 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=' + encodeURIComponent(query);
-  document.getElementById('springerLink').href = 'https://link.springer.com/search?query=' + encodeURIComponent(query);
-  document.getElementById('natureLink').href = 'https://www.nature.com/search?q=' + encodeURIComponent(query);
-  document.getElementById('sciDirectLink').href = 'https://www.sciencedirect.com/search?qs=' + encodeURIComponent(query);
   document.getElementById('wileyLink').href = 'https://onlinelibrary.wiley.com/action/doSearch?AllField=' + encodeURIComponent(query);
   document.getElementById('tfLink').href = 'https://www.tandfonline.com/action/doSearch?AllField=' + encodeURIComponent(query);
 }
@@ -1062,7 +1054,7 @@ async function runSearch(fromHistory){
   btn.disabled = true;
   statusRow.style.display = 'flex';
   exportRow.style.display = 'none';
-  statusEl.textContent = `Searching OpenAlex + Semantic Scholar + CrossRef + arXiv${currentScope === 'pk' ? ' (Pakistan-focused)' : ' (global)'}...`;
+  statusEl.textContent = `Searching all connected academic databases${currentScope === 'pk' ? ' (Pakistan-focused)' : ' (global)'}...`;
   chartPanel.classList.remove('show');
   resultsEl.innerHTML = skeletonHTML(4);
   document.getElementById('loadMoreWrap')?.remove();
@@ -1100,7 +1092,7 @@ async function runSearch(fromHistory){
     }
 
     currentPapers = batch;
-    statusEl.textContent = `${currentPapers.length} results for "${kw}"${yrRaw ? ' · ' + yrRaw : ''} ${currentScope==='pk' ? '· Pakistan-focused' : '· Global'} (OpenAlex + Semantic Scholar + CrossRef + arXiv, deduped)`;
+    statusEl.textContent = `${currentPapers.length} results for "${kw}"${yrRaw ? ' · ' + yrRaw : ''} ${currentScope==='pk' ? '· Pakistan-focused' : '· Global'} (all connected sources, deduped)`;
     exportRow.style.display = 'flex';
     renderChart(currentPapers);
     resultsEl.innerHTML = currentPapers.map(p => renderCard(p, false, getHighlightWords(searchState.displayKw))).join('');
@@ -1133,7 +1125,7 @@ async function loadMore(){
     currentPapers = currentPapers.concat(more);
     if(fSort.value === 'citations') currentPapers.sort((a,b) => (b.citations||0)-(a.citations||0));
     else if(fSort.value === 'year') currentPapers.sort((a,b) => (b.year||0)-(a.year||0));
-    statusEl.textContent = `${currentPapers.length} results for "${searchState.displayKw}"${yrInput.value.trim() && !fAnyYear.checked ? ' · ' + yrInput.value.trim() : ''} ${searchState.scope==='pk' ? '· Pakistan-focused' : '· Global'} (OpenAlex + Semantic Scholar + CrossRef + arXiv, deduped)`;
+    statusEl.textContent = `${currentPapers.length} results for "${searchState.displayKw}"${yrInput.value.trim() && !fAnyYear.checked ? ' · ' + yrInput.value.trim() : ''} ${searchState.scope==='pk' ? '· Pakistan-focused' : '· Global'} (all connected sources, deduped)`;
     renderChart(currentPapers);
     resultsEl.innerHTML = currentPapers.map(p => renderCard(p, false, getHighlightWords(searchState.displayKw))).join('');
     attachCardHandlers(resultsEl, currentPapers);

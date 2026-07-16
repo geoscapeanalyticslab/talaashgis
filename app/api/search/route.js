@@ -40,8 +40,10 @@ export async function GET(request){
   if(!state || state.kw !== kw || state.year !== year || state.scope !== scope){
     state = {
       kw, displayKw: kw, year, scope,
-      s2Offset: 0, crOffset: 0, oaPage: 1, arxivStart: 0,
-      s2HasMore: true, crHasMore: true, oaHasMore: true, arxivHasMore: true,
+      s2Offset: 0, crOffset: 0, oaPage: 1, arxivStart: 0, springerStart: 0,
+      coreOffset: 0, elsevierStart: 0, ieeeStart: 0, nasaAdsStart: 0,
+      s2HasMore: true, crHasMore: true, oaHasMore: true, arxivHasMore: true, springerHasMore: true,
+      coreHasMore: true, elsevierHasMore: true, ieeeHasMore: true, nasaAdsHasMore: true,
       seenKeys: []
     };
   }
@@ -51,7 +53,8 @@ export async function GET(request){
 
   try {
     const papers = await fetchBatch(state, filters, blobStore);
-    const hasMore = state.s2HasMore || state.crHasMore || state.oaHasMore || state.arxivHasMore;
+    const hasMore = state.s2HasMore || state.crHasMore || state.oaHasMore || state.arxivHasMore ||
+      state.springerHasMore || state.coreHasMore || state.elsevierHasMore || state.ieeeHasMore || state.nasaAdsHasMore;
     return NextResponse.json({ papers, state, hasMore });
   } catch (err) {
     return NextResponse.json({ error: err.message || 'Search failed.' }, { status: 500 });
