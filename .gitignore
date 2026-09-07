@@ -3,3 +3,7 @@ node_modules/
 .netlify/
 .env
 .env.local
+
+# local backups & Claude preview outputs (not part of the app)
+*.bak
+Claude outputs/

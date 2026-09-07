@@ -292,9 +292,17 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
   .filters{gap:10px;}
   .card .actions button, .card .actions a{padding:6px 9px; font-size:11px;}
 }
+/* ---------- Accessibility (WCAG 2.1) ---------- */
+.skip-link{position:absolute; left:8px; top:-48px; z-index:300; background:var(--accent); color:#0F2019; padding:9px 14px; border-radius:8px; font-weight:600; font-size:13px; text-decoration:none; transition:top .15s;}
+.skip-link:focus{top:8px;}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important; scroll-behavior:auto!important;}
+  #splash .ring-anim{animation:none!important;}
+}
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <!-- ICON SPRITE -->
 <svg style="display:none">
@@ -358,7 +366,7 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
   </nav>
 </header>
 
-<main>
+<main id="main-content" tabindex="-1">
 
   <!-- SEARCH VIEW -->
   <section class="view active" id="view-search">
@@ -444,7 +452,7 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
     </div>
 
     <div class="status-line" id="statusRow" style="display:none;">
-      <span id="status"></span>
+      <span id="status" role="status" aria-live="polite" aria-atomic="true"></span>
       <span class="export-row" id="exportRow" style="display:none;">
         <button class="ghost" id="exportCsv"><svg class="icon"><use href="#i-download"/></svg> CSV</button>
         <button class="ghost" id="exportBib"><svg class="icon"><use href="#i-download"/></svg> BibTeX</button>
@@ -456,7 +464,7 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
       <div class="chart-bars" id="chartBars"></div>
     </div>
 
-    <div class="results" id="results">
+    <div class="results" id="results" aria-label="Search results">
       <div class="empty">
         <svg><use href="#i-search"/></svg>
         <div class="big">No search run yet</div>
@@ -1491,6 +1499,50 @@ if(!localStorage.getItem('talaashgis_seen_coach')){
 if('serviceWorker' in navigator){
   window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(()=>{}); });
 }
+
+/* ---- Accessibility layer (WCAG 2.1) ---- */
+(function(){
+  try{
+    document.querySelectorAll('.urdu').forEach(function(el){ el.setAttribute('lang','ur'); el.setAttribute('dir','rtl'); });
+    var tablist = document.querySelector('nav.tabs');
+    if(tablist){
+      var tabs = Array.prototype.slice.call(tablist.querySelectorAll('button[role=tab]'));
+      var map = { search:'view-search', bookmarks:'view-bookmarks', history:'view-history', about:'view-about' };
+      tabs.forEach(function(t){ var v=t.getAttribute('data-view'); var pid=map[v]; if(pid){ t.setAttribute('aria-controls',pid); if(!t.id) t.id='tab-'+v; } });
+      Object.keys(map).forEach(function(v){ var p=document.getElementById(map[v]); if(p){ p.setAttribute('role','tabpanel'); p.setAttribute('aria-labelledby','tab-'+v); } });
+      var sync = function(){ tabs.forEach(function(t){ var on=t.classList.contains('active'); t.setAttribute('aria-selected', on?'true':'false'); t.setAttribute('tabindex', on?'0':'-1'); }); };
+      sync();
+      new MutationObserver(sync).observe(tablist, { subtree:true, attributes:true, attributeFilter:['class'] });
+      tablist.addEventListener('keydown', function(e){
+        var i = tabs.indexOf(document.activeElement); if(i<0) return; var n=null;
+        if(e.key==='ArrowRight'||e.key==='ArrowDown') n=(i+1)%tabs.length;
+        else if(e.key==='ArrowLeft'||e.key==='ArrowUp') n=(i-1+tabs.length)%tabs.length;
+        else if(e.key==='Home') n=0; else if(e.key==='End') n=tabs.length-1;
+        if(n!==null){ e.preventDefault(); tabs[n].focus(); tabs[n].click(); }
+      });
+    }
+    var overlay = document.getElementById('modalOverlay');
+    var dialog = document.getElementById('modalBody');
+    if(overlay && dialog){
+      dialog.setAttribute('role','dialog'); dialog.setAttribute('aria-modal','true'); dialog.setAttribute('tabindex','-1');
+      var lastFocus=null, wasShown=false;
+      var focusables = function(){ return Array.prototype.slice.call(dialog.querySelectorAll('a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])')).filter(function(el){ return el.offsetParent!==null; }); };
+      new MutationObserver(function(){
+        var shown = overlay.classList.contains('show');
+        if(shown && !wasShown){ wasShown=true; lastFocus=document.activeElement; var fo=focusables(); if(fo.length) fo[0].focus(); }
+        else if(!shown && wasShown){ wasShown=false; if(lastFocus && lastFocus.focus) lastFocus.focus(); }
+      }).observe(overlay, { attributes:true, attributeFilter:['class'] });
+      document.addEventListener('keydown', function(e){
+        if(!overlay.classList.contains('show')) return;
+        if(e.key==='Escape'){ if(typeof closeModal==='function') closeModal(); else { overlay.classList.remove('show'); dialog.innerHTML=''; } }
+        else if(e.key==='Tab'){ var fo=focusables(); if(!fo.length) return; var first=fo[0], last=fo[fo.length-1];
+          if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+          else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } }
+      });
+    }
+  }catch(err){ console.warn('a11y layer:', err); }
+})();
+
 </script>
 </body>
 </html>
