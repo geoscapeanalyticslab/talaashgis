@@ -1,6 +1,6 @@
 # GRIPS — Backend Edition
 
-This is the full-backend version of GRIPS. The frontend (`public/index.html`)
+This is the full-backend version of GRIPS (Geospatial Research Index of Pakistan Studies). The frontend (`public/index.html`)
 is the exact same tested app you already had — it now talks to a Next.js backend
 instead of calling OpenAlex/Semantic Scholar/CrossRef/arXiv/Unpaywall directly
 from the browser.
