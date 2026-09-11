@@ -1,4 +1,4 @@
-# TalaashGIS — Backend Edition
+# GRIPS — Backend Edition
 
 This is the full-backend version of TalaashGIS. The frontend (`public/index.html`)
 is the exact same tested app you already had — it now talks to a Next.js backend
