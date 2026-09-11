@@ -27,14 +27,14 @@
   --shadow-glow:0 0 0 1px rgba(14,122,91,0.10), 0 10px 30px rgba(14,122,91,0.08);
 }
 [data-theme="dark"]{
-  --bg:#12211C; --bg-2:#17281F; --panel:#1A2E26; --panel-2:#20392F; --panel-glass:rgba(26,46,38,0.78);
-  --line:#2C4438; --line-soft:#243A30;
-  --text:#F3EFE3; --text-dim:#CBBFA6; --muted:#8CA697; --muted-2:#6C8577;
-  --accent:#2FC08B; --accent-dim:#22A379; --accent-glow:rgba(47,192,139,0.22);
-  --accent-2:#E3A75B; --warn:#E8834A; --danger:#E5624A;
+  --bg:#0F141A; --bg-2:#161D26; --panel:#1B222C; --panel-2:#232C38; --panel-glass:rgba(27,34,44,0.80);
+  --line:#2E3A48; --line-soft:#26313D;
+  --text:#F1F2F4; --text-dim:#C6CCD4; --muted:#94A1B0; --muted-2:#6F7D8C;
+  --accent:#E2AC55; --accent-dim:#CA9433; --accent-glow:rgba(226,172,85,0.20);
+  --accent-2:#5AA0E6; --warn:#E8834A; --danger:#E5624A;
   --shadow-sm:0 1px 2px rgba(0,0,0,0.3);
   --shadow-md:0 10px 28px rgba(0,0,0,0.35);
-  --shadow-glow:0 0 0 1px rgba(47,192,139,0.18), 0 10px 30px rgba(47,192,139,0.10);
+  --shadow-glow:0 0 0 1px rgba(226,172,85,0.18), 0 10px 30px rgba(226,172,85,0.10);
 }
 *{box-sizing:border-box;}
 html,body{margin:0; height:100%; scroll-behavior:smooth;}
@@ -55,7 +55,7 @@ svg.icon.fill{fill:currentColor;}
 
 /* ---------- Splash ---------- */
 #splash{
-  position:fixed; inset:0; z-index:200; background:#12211C;
+  position:fixed; inset:0; z-index:200; background:#0F141A;
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
   transition:opacity .6s ease, visibility .6s;
 }
@@ -65,9 +65,9 @@ svg.icon.fill{fill:currentColor;}
 #splash .ring-anim{animation:spin 3s linear infinite; transform-origin:center;}
 @keyframes spin{to{transform:rotate(360deg);}}
 #splash h1{color:#F3EFE3; font-family:'Sora', sans-serif; font-weight:700; font-size:26px; margin:0; letter-spacing:-0.01em;}
-#splash h1 span{background:linear-gradient(90deg,#2FC08B,#E3A75B); -webkit-background-clip:text; background-clip:text; color:transparent;}
+#splash h1 span{background:linear-gradient(90deg,#E2AC55,#5AA0E6); -webkit-background-clip:text; background-clip:text; color:transparent;}
 #splash .tag{color:#8CA697; font-size:12.5px; font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em;}
-#splash .ur{color:#2FC08B; font-size:22px;}
+#splash .ur{color:#E2AC55; font-size:22px;}
 
 /* ---------- Header / nav ---------- */
 header{position:sticky; top:0; z-index:20; background:var(--panel-glass); backdrop-filter:blur(14px) saturate(1.4);
@@ -575,7 +575,7 @@ footer{max-width:none; margin:0; padding:20px clamp(16px,3vw,40px) 30px; color:v
 
 </main>
 
-<footer>GRIPS · data via OpenAlex, Semantic Scholar, CrossRef, arXiv &amp; more · Made in Pakistan</footer>
+<footer>GRIPS · a project of GeoScape Analytics Lab (GSAL) · data via OpenAlex, Semantic Scholar, CrossRef, arXiv &amp; more · Made in Pakistan</footer>
 
 <button class="fab-report" id="fabReport"><svg class="icon" style="width:15px;height:15px;"><use href="#i-alert"/></svg>Report an issue</button>
 <div class="toast" id="toast"></div>
