@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'TalaashGIS',
+  title: 'GRIPS',
   description: 'Pakistan-focused GIS, remote sensing & earth science research finder',
 };
 

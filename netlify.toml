@@ -5,7 +5,7 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Serve the existing TalaashGIS frontend (public/index.html) at the site root,
+# Serve the existing GRIPS frontend (public/index.html) at the site root,
 # instead of Next.js's default app/page.tsx.
 [[redirects]]
   from = "/"

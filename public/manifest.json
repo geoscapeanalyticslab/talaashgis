@@ -1,6 +1,6 @@
 {
-  "name": "TalaashGIS — Pakistan GIS, Remote Sensing & Earth Science Research Finder",
-  "short_name": "TalaashGIS",
+  "name": "GRIPS — Pakistan GIS, Remote Sensing & Earth Science Research Finder",
+  "short_name": "GRIPS",
   "description": "Pakistan-focused search tool for GIS, remote sensing, earth & environmental science, geography and space science research papers, by keyword and year.",
   "start_url": "index.html",
   "display": "standalone",
