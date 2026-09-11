@@ -87,8 +87,14 @@ header{position:sticky; top:0; z-index:20; background:var(--panel-glass); backdr
 }
 .icon-btn:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-1px);}
 
-nav.tabs{max-width:1000px; margin:12px auto 0; display:flex; gap:4px; padding:3px; overflow-x:auto;
-  background:var(--panel-2); border:1px solid var(--line); border-radius:12px; width:fit-content; max-width:calc(100% - 0px);}
+nav.tabs{margin:0; display:flex; gap:4px; padding:3px; overflow-x:auto;
+  background:var(--panel-2); border:1px solid var(--line); border-radius:12px; width:fit-content; max-width:100%;}
+.headright{display:flex; align-items:center; gap:12px; min-width:0;}
+@media (max-width:760px){
+  .headrow{flex-wrap:wrap;}
+  .headright{width:100%; justify-content:flex-end;}
+  nav.tabs{flex:1 1 auto;}
+}
 nav.tabs button{
   background:transparent; border:none; color:var(--muted); display:flex; align-items:center; gap:6px;
   padding:8px 16px; border-radius:9px; font-size:13px; cursor:pointer; white-space:nowrap;
@@ -364,16 +370,18 @@ footer{max-width:none; margin:0; padding:20px clamp(16px,3vw,40px) 30px; color:v
         <div class="sub">SEARCH · SCAN · CITE</div>
       </div>
     </div>
-    <div class="headctrls">
-      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme"><svg class="icon"><use href="#i-moon"/></svg></button>
+    <div class="headright">
+      <nav class="tabs" role="tablist">
+        <button data-view="search" class="active" role="tab"><svg class="icon"><use href="#i-search"/></svg> Search</button>
+        <button data-view="bookmarks" role="tab"><svg class="icon"><use href="#i-star"/></svg> Bookmarks <span class="count" id="bmCount">0</span></button>
+        <button data-view="history" role="tab"><svg class="icon"><use href="#i-clock"/></svg> History</button>
+        <button data-view="about" role="tab"><svg class="icon"><use href="#i-info"/></svg> About</button>
+      </nav>
+      <div class="headctrls">
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle theme"><svg class="icon"><use href="#i-moon"/></svg></button>
+      </div>
     </div>
   </div>
-  <nav class="tabs" role="tablist">
-    <button data-view="search" class="active" role="tab"><svg class="icon"><use href="#i-search"/></svg> Search</button>
-    <button data-view="bookmarks" role="tab"><svg class="icon"><use href="#i-star"/></svg> Bookmarks <span class="count" id="bmCount">0</span></button>
-    <button data-view="history" role="tab"><svg class="icon"><use href="#i-clock"/></svg> History</button>
-    <button data-view="about" role="tab"><svg class="icon"><use href="#i-info"/></svg> About</button>
-  </nav>
 </header>
 
 <main id="main-content" tabindex="-1">
