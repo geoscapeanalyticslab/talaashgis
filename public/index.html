@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>GRIPS — Pakistan GIS, Remote Sensing &amp; Earth Science Research Finder</title>
+<title>GRIPS: Pakistan GIS, Remote Sensing &amp; Earth Science Research Finder</title>
 <meta name="theme-color" content="#FBF8F3">
 <meta name="description" content="Pakistan-focused search tool for GIS, remote sensing, earth &amp; environmental science, geography and space science research papers, by keyword and year.">
 <link rel="manifest" href="manifest.json">
@@ -71,14 +71,14 @@ svg.icon.fill{fill:currentColor;}
 
 /* ---------- Header / nav ---------- */
 header{position:sticky; top:0; z-index:20; background:var(--panel-glass); backdrop-filter:blur(14px) saturate(1.4);
-  border-bottom:1px solid var(--line); padding:14px 20px;}
-.headrow{max-width:1000px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px;}
+  border-bottom:1px solid var(--line); padding:14px clamp(16px,3vw,40px);}
+.headrow{max-width:none; margin:0; display:flex; align-items:center; justify-content:space-between; gap:12px;}
 .logo{display:flex; align-items:center; gap:11px;}
 .logo-mark{width:34px; height:34px; flex-shrink:0;}
 .logo-text{line-height:1.2;}
-.logo-text .name{font-family:'Times New Roman', Times, serif; font-weight:700; font-size:18px; letter-spacing:0;}
+.logo-text .name{font-family:'Times New Roman', Times, serif; font-weight:700; font-size:28px; letter-spacing:0; line-height:1.05;}
 .logo-text .name .hl{color:var(--accent);}
-.logo-text .name .full{font-family:'Times New Roman', Times, serif; font-weight:400; font-size:13px; letter-spacing:0; color:var(--muted);}
+.logo-text .full{font-family:'Times New Roman', Times, serif; font-weight:400; font-size:13.5px; letter-spacing:0; color:var(--muted); line-height:1.25; margin-top:2px;}
 .logo-text .sub{font-size:10px; color:var(--muted); font-family:'IBM Plex Mono', monospace; letter-spacing:0.08em;}
 .headctrls{display:flex; align-items:center; gap:8px;}
 .icon-btn{
@@ -98,7 +98,7 @@ nav.tabs button.active{background:var(--accent); color:#0F2019; font-weight:600;
 nav.tabs button .count{background:rgba(0,0,0,0.15); border-radius:8px; padding:0 6px; font-size:10.5px;}
 nav.tabs button.active .count{background:rgba(4,21,12,0.2);}
 
-main{max-width:1000px; margin:0 auto; padding:22px 20px 100px;}
+main{max-width:none; margin:0; padding:22px clamp(16px,3vw,40px) 100px;}
 .view{display:none; animation:fadein .3s ease;}
 .view.active{display:block;}
 @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
@@ -253,16 +253,16 @@ mark{background:var(--accent-glow); color:var(--accent-dim); border-radius:3px; 
 .about-card h3{margin-top:0; font-size:15px; font-family:'Sora', sans-serif; color:var(--accent); display:flex; align-items:center; gap:8px;}
 .about-card .disclaimer{font-size:12.5px; color:var(--muted); border-left:2px solid var(--warn); padding:8px 12px; margin-top:10px; background:var(--panel-2); border-radius:0 6px 6px 0;}
 
-footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--muted); font-family:'IBM Plex Mono', monospace; font-size:11px; text-align:center;}
+footer{max-width:none; margin:0; padding:20px clamp(16px,3vw,40px) 30px; color:var(--muted); font-family:'IBM Plex Mono', monospace; font-size:11px; text-align:center;}
 
-.fab-report{position:fixed; bottom:22px; right:22px; z-index:65; background:var(--panel); color:var(--text);
+.fab-report{position:fixed; bottom:22px; left:22px; z-index:65; background:var(--panel); color:var(--text);
   border:1px solid var(--line); border-radius:24px; padding:11px 18px 11px 15px; font-size:13px; font-weight:600;
   font-family:'Inter', sans-serif; cursor:pointer; display:flex; align-items:center; gap:8px; box-shadow:var(--shadow-md);
   transition:all .15s;}
 .fab-report:hover{border-color:var(--warn); color:var(--warn); transform:translateY(-2px);}
 .fab-report svg{stroke:var(--warn);}
 @media (max-width:520px){
-  .fab-report{bottom:14px; right:14px; padding:10px 14px 10px 12px; font-size:12.5px;}
+  .fab-report{bottom:14px; left:14px; padding:10px 14px 10px 12px; font-size:12.5px;}
 }
 
 .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(10px); background:var(--panel-2);
@@ -299,6 +299,14 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after{animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important; scroll-behavior:auto!important;}
   #splash .ring-anim{animation:none!important;}
+}
+
+/* GRIPS overrides */
+*{font-family:'Times New Roman', Times, serif !important;}
+@media (max-width:600px){
+  .logo-text .name{font-size:22px;}
+  .logo-text .full{font-size:12px;}
+  .headrow{gap:8px;}
 }
 </style>
 </head>
@@ -351,7 +359,8 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
         <circle cx="78" cy="28" r="4" fill="var(--accent-2)"/>
       </svg>
       <div class="logo-text">
-        <div class="name"><span class="hl">GRIPS</span> <span class="full">— Geospatial Research Index of Pakistan Studies</span></div>
+        <div class="name"><span class="hl">GRIPS</span></div>
+        <div class="full">Geospatial Research Index of Pakistan Studies</div>
         <div class="sub">SEARCH · SCAN · CITE</div>
       </div>
     </div>
@@ -373,8 +382,8 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
   <section class="view active" id="view-search">
     <div class="hero">
       <div class="hero-text">
-        <h2>Find research that matters — fast.</h2>
-        <p>Search live GIS, remote sensing, earth &amp; environmental science, geography, and space science literature — locked to Pakistan-specific results by default.</p>
+        <h2>Find research that matters, fast.</h2>
+        <p>Search live GIS, remote sensing, earth &amp; environmental science, geography, and space science literature, locked to Pakistan-specific results by default.</p>
       </div>
       <div class="hero-badge">
         <svg viewBox="0 0 100 100" class="hero-mark">
@@ -402,10 +411,10 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
           </label>
           <input id="yr" type="text" placeholder="e.g. 2022 or 2020-2025" autocomplete="off" />
           <div class="tooltip" id="yearTooltip">
-            <div><code>2022</code> — single year</div>
-            <div><code>2020-2025</code> — range</div>
-            <div><code>2015-</code> — from 2015 to now</div>
-            <div><code>-2010</code> — up to 2010</div>
+            <div><code>2022</code>, single year</div>
+            <div><code>2020-2025</code>, range</div>
+            <div><code>2015-</code>, from 2015 to now</div>
+            <div><code>-2010</code>, up to 2010</div>
             <div>Or just tick "Any year" →</div>
           </div>
         </div>
@@ -439,7 +448,7 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
         <button class="chip sm" data-q="urbanization population geography">Urban geography</button>
       </div>
       <div class="filters" id="pkAccuracyFilters" style="border-top:none; padding-top:0; margin-top:10px;">
-        <label title="Only keep papers where at least one author's institution is affiliated with Pakistan, per OpenAlex — the strongest accuracy signal available.">
+        <label title="Only keep papers where at least one author's institution is affiliated with Pakistan, per OpenAlex, the strongest accuracy signal available.">
           <input type="checkbox" id="fVerifiedOnly"> Verified Pakistan-affiliated authors only
         </label>
       </div>
@@ -469,7 +478,7 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
       <div class="empty">
         <svg><use href="#i-search"/></svg>
         <div class="big">No search run yet</div>
-        Enter keywords — try "hyperspectral soil mapping" or "InSAR land subsidence" — and press Search.
+        Enter keywords, try "hyperspectral soil mapping" or "InSAR land subsidence", and press Search.
       </div>
     </div>
   </section>
@@ -497,26 +506,26 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
   <section class="view" id="view-about">
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-globe"/></svg> About GRIPS</h3>
-      <p>GRIPS (Geospatial Research Index of Pakistan Studies) is a free literature-discovery tool built for Pakistani GIS, remote sensing, earth &amp; environmental science, geography, and space science researchers and students. Give it keywords and a year (or year range), and it pulls live results from open academic databases — no login, no paywall to search.</p>
+      <p>GRIPS (Geospatial Research Index of Pakistan Studies) is a free literature-discovery tool built for Pakistani GIS, remote sensing, earth &amp; environmental science, geography, and space science researchers and students. Give it keywords and a year (or year range), and it pulls live results from open academic databases, no login, no paywall to search.</p>
     </div>
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-inbox"/></svg> Data Sources</h3>
       <p>Results are merged and de-duplicated (by DOI first, then title) from multiple sources in real time: <strong>OpenAlex</strong>, <strong>Semantic Scholar</strong>, <strong>CrossRef</strong>, and <strong>arXiv</strong> (preprints) always; plus <strong>Springer Nature</strong> (including Nature-family journals), <strong>CORE</strong>, <strong>Elsevier/ScienceDirect</strong>, <strong>IEEE Xplore</strong>, and <strong>NASA ADS</strong> (astronomy/astrophysics/planetary/space science) when their API keys are configured on the backend. <strong>Unpaywall</strong> is also checked for papers that aren't already flagged open access, to surface a free full-text link where one genuinely exists.</p>
       <p>Google Scholar, JSTOR, Wiley, and Taylor &amp; Francis don't offer a free public search API for this kind of app, so they can't be queried automatically. Use the cross-check links under the search box to open the same query directly on each of those sites.</p>
-      <p>All requests to these sources — and every API key they require — are made from the backend server, never from your browser, so keys stay private and rate limits are shared sensibly across everyone using the app.</p>
+      <p>All requests to these sources, and every API key they require, are made from the backend server, never from your browser, so keys stay private and rate limits are shared sensibly across everyone using the app.</p>
     </div>
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-check"/></svg> Pakistan-only Scope &amp; Accuracy</h3>
-      <p>By default, GRIPS keeps a paper only if either of two things is true: (1) the paper's title, abstract, or journal actually names Pakistan or a Pakistani region — not just any paper matching your keyword — or (2) at least one author's institution is affiliated with Pakistan, per OpenAlex's affiliation data. Papers confirmed through affiliation data carry a <strong>"Verified PK author"</strong> badge; papers matched only through text carry a lighter <strong>"PK mention"</strong> badge, so you can judge confidence at a glance. Tick <strong>"Verified Pakistan-affiliated authors only"</strong> above the search box for the strictest possible filter.</p>
-      <p>Your search keyword is sent to every source as plain text — no quote-wrapping, no forced extra words — to get the widest possible set of candidates back. Every one of those candidates is then required to actually contain each of your topic's words in its own title/abstract/venue (not just something the upstream API's fuzzy ranking thought was "close enough"), so nothing off-topic survives regardless of how loose the initial search was.</p>
-      <p>Region names that Pakistan shares with other countries — "Punjab" (also an Indian state) and "Balochistan/Baluchestan" (also spans Iran) — are treated carefully: a match on one of these alone is discarded if the same paper also names a different specific country (India, Iran, etc.) without any Pakistan-unique term to outweigh it. The same conflicting-country check applies to the institution-affiliation signal too, so a Pakistani-affiliated author's paper about a different country's case study won't get pulled in either.</p>
+      <p>By default, GRIPS keeps a paper only if either of two things is true: (1) the paper's title, abstract, or journal actually names Pakistan or a Pakistani region, not just any paper matching your keyword, or (2) at least one author's institution is affiliated with Pakistan, per OpenAlex's affiliation data. Papers confirmed through affiliation data carry a <strong>"Verified PK author"</strong> badge; papers matched only through text carry a lighter <strong>"PK mention"</strong> badge, so you can judge confidence at a glance. Tick <strong>"Verified Pakistan-affiliated authors only"</strong> above the search box for the strictest possible filter.</p>
+      <p>Your search keyword is sent to every source as plain text, no quote-wrapping, no forced extra words, to get the widest possible set of candidates back. Every one of those candidates is then required to actually contain each of your topic's words in its own title/abstract/venue (not just something the upstream API's fuzzy ranking thought was "close enough"), so nothing off-topic survives regardless of how loose the initial search was.</p>
+      <p>Region names that Pakistan shares with other countries, "Punjab" (also an Indian state) and "Balochistan/Baluchestan" (also spans Iran), are treated carefully: a match on one of these alone is discarded if the same paper also names a different specific country (India, Iran, etc.) without any Pakistan-unique term to outweigh it. The same conflicting-country check applies to the institution-affiliation signal too, so a Pakistani-affiliated author's paper about a different country's case study won't get pulled in either.</p>
       <p>Switch to <strong>Global</strong> scope (toggle above the search box) to search worldwide without any of this filtering.</p>
-      <div class="disclaimer">No automated filter is 100% perfect. If something irrelevant still slips through, use the "Report" button on that result — this is exactly what that feature is for.</div>
+      <div class="disclaimer">No automated filter is 100% perfect. If something irrelevant still slips through, use the "Report" button on that result, this is exactly what that feature is for.</div>
     </div>
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-star"/></svg> "Reputed Journal" Badge</h3>
       <p>Papers published in a curated reference list of well-known, widely-indexed GIS/remote sensing journals (e.g. Remote Sensing of Environment, ISPRS Journal, IJRS, IEEE TGRS, GIScience &amp; Remote Sensing) are marked with a badge.</p>
-      <div class="disclaimer">Disclaimer: this badge is based on a static reference list maintained by this app — it is NOT live official HEC (Higher Education Commission, Pakistan) recognition data. For official HEC-recognized/approved journal status, always verify at <strong>hec.gov.pk</strong>.</div>
+      <div class="disclaimer">Disclaimer: this badge is based on a static reference list maintained by this app, it is NOT live official HEC (Higher Education Commission, Pakistan) recognition data. For official HEC-recognized/approved journal status, always verify at <strong>hec.gov.pk</strong>.</div>
     </div>
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-folder"/></svg> Collections &amp; Notes</h3>
@@ -524,7 +533,7 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
     </div>
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-alert"/></svg> My Reports</h3>
-      <p>Issues you've flagged on results (wrong year, not relevant, broken link, etc.) are logged here locally, and also saved to the backend under your Sync Code — so they can be reviewed centrally instead of staying trapped in one browser.</p>
+      <p>Issues you've flagged on results (wrong year, not relevant, broken link, etc.) are logged here locally, and also saved to the backend under your Sync Code, so they can be reviewed centrally instead of staying trapped in one browser.</p>
       <div id="reportsList"></div>
       <div class="modal-actions" style="justify-content:flex-start; margin-top:10px;">
         <button class="ghost" id="copyReports"><svg class="icon"><use href="#i-copy"/></svg> Copy all as text</button>
@@ -533,13 +542,13 @@ footer{max-width:1000px; margin:0 auto; padding:20px 20px 30px; color:var(--mute
     </div>
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-check"/></svg> Auto-Blocked Papers</h3>
-      <p>When a specific paper is reported as "Not actually about Pakistan", "Off-topic", or "Duplicate", it's <strong>immediately excluded</strong> from every future search — for everyone, automatically, no manual approval needed. This list shows everything that's been auto-blocked, in case a report was wrong — click "Un-block" to make a paper show up again.</p>
+      <p>When a specific paper is reported as "Not actually about Pakistan", "Off-topic", or "Duplicate", it's <strong>immediately excluded</strong> from every future search, for everyone, automatically, no manual approval needed. This list shows everything that's been auto-blocked, in case a report was wrong, click "Un-block" to make a paper show up again.</p>
       <button class="ghost" id="refreshBlocklist" style="margin-bottom:10px;"><svg class="icon"><use href="#i-plus"/></svg> Refresh list</button>
       <div id="blocklistPending"><p style="color:var(--muted); font-size:13px;">Click "Refresh list" to load.</p></div>
     </div>
     <div class="about-card">
       <h3><svg class="icon"><use href="#i-globe"/></svg> Sync Across Devices</h3>
-      <p>Your bookmarks, notes, history, and reports are saved locally AND to the backend under a private <strong>Sync Code</strong> — no email or password needed. Copy your code to use on another device, or enter someone else's code (e.g. shared with your lab director) to pull their data down.</p>
+      <p>Your bookmarks, notes, history, and reports are saved locally AND to the backend under a private <strong>Sync Code</strong>, no email or password needed. Copy your code to use on another device, or enter someone else's code (e.g. shared with your lab director) to pull their data down.</p>
       <div class="modal-actions" style="justify-content:flex-start; align-items:center; gap:10px; flex-wrap:wrap;">
         <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; background:var(--panel-2); padding:6px 12px; border-radius:6px;" id="mySyncCode">••••••••</span>
         <button class="ghost" id="copySyncCode"><svg class="icon"><use href="#i-copy"/></svg> Copy my code</button>
