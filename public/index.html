@@ -260,6 +260,8 @@ mark{background:var(--accent-glow); color:var(--accent-dim); border-radius:3px; 
 .about-card .disclaimer{font-size:12.5px; color:var(--muted); border-left:2px solid var(--warn); padding:8px 12px; margin-top:10px; background:var(--panel-2); border-radius:0 6px 6px 0;}
 
 footer{max-width:none; margin:0; padding:20px clamp(16px,3vw,40px) 30px; color:var(--muted); font-family:'IBM Plex Mono', monospace; font-size:11px; text-align:center;}
+footer a{color:var(--accent); text-decoration:none; font-weight:600;}
+footer a:hover{text-decoration:underline;}
 
 .fab-report{position:fixed; bottom:22px; left:22px; z-index:65; background:var(--panel); color:var(--text);
   border:1px solid var(--line); border-radius:24px; padding:11px 18px 11px 15px; font-size:13px; font-weight:600;
@@ -575,7 +577,7 @@ footer{max-width:none; margin:0; padding:20px clamp(16px,3vw,40px) 30px; color:v
 
 </main>
 
-<footer>GRIPS · a project of GeoScape Analytics Lab (GSAL) · data via OpenAlex, Semantic Scholar, CrossRef, arXiv &amp; more · Made in Pakistan</footer>
+<footer>GRIPS · a project of <a href="https://geoscapeanalyticslab.github.io/?p=projects" target="_blank" rel="noopener noreferrer">GeoScape Analytics Lab (GSAL)</a> · data via OpenAlex, Semantic Scholar, CrossRef, arXiv &amp; more · Made in Pakistan</footer>
 
 <button class="fab-report" id="fabReport"><svg class="icon" style="width:15px;height:15px;"><use href="#i-alert"/></svg>Report an issue</button>
 <div class="toast" id="toast"></div>
